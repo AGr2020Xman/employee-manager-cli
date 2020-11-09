@@ -47,3 +47,5 @@ const viewEmployeesByManager = () => {
 const viewBudget = () => {
 
 };
+
+module.exports = { viewEmployees, viewRoles, viewDepartment, viewEmployeesByManager, viewBudget };
