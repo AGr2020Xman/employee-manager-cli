@@ -1,6 +1,16 @@
 const { prompt } = require('inquirer');
+const connection = require('./index');
+const conTable = require('console.table')
+const { 
+    departmentArray, 
+    filterDepartmentArray, 
+    roleArray, 
+    filterRoleArray, 
+    employeeArray, 
+    managerArray 
+} = require("./db_array");
 
-const startCLI = () => {
+const startMenu = () => {
     prompt([
         {
             type: "list",
@@ -24,26 +34,54 @@ const startCLI = () => {
                 addDepartment();
                 break;
             case "ADD roles":
-                addDepartment();
+                addRoles();
                 break;
             case "ADD employees":
-                addDepartment();
+                addEmployees();
                 break; 
             case "VIEW departments":
                 viewDepartment();
                 break; 
             case "VIEW roles":
-                viewDepartment();
+                viewRoles();
                 break; 
             case "VIEW employees":
-                viewDepartment();
+                viewEmployees();
                 break; 
             case "UPDATE employee":
-                addDepartment();
+                updateEmployee();
                 break;
             case "Exit":
                 closeCLI();
+                connection.end();
                 break;
         }
     });
-}
+};
+
+const addDepartment = () => {};
+const addRoles = () => {};
+const addEmployees = () => {};
+const viewDepartment = () => {
+    const query = "SELECT * FROM department ORDER BY department.id";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        departmentArray = [];
+        res.forEach((row) => {
+            let department = {
+                id: row.id,
+                name: row.name,
+            };
+            (departmentArray).push(department);
+        })
+        console.log('\n');
+        console.table(departmentArray);
+    })
+    startMenu();
+};
+
+const viewRoles = () => {};
+const viewEmployees = () => {};
+const updateEmployee = () => {};
+const closeCLI = () => {};
+
