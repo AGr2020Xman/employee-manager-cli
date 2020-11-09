@@ -6,10 +6,18 @@ CREATE TABLE employees (
     first_name VARCHAR(30);
     last_name VARCHAR(30);
     role_id INT NOT NULL, 
-    manager_id INT, 
+    manager_id INT,
+    CONSTRAINT fk_role
+        FOREIGN KEY(role_id) 
+        REFERENCES role(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+    CONSTRAINT fk_manager
+        FOREIGN KEY(manager_id) 
+        REFERENCES employees(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(role_id) REFERENCES role(id),
-    FOREIGN KEY(manager_id) REFERENCES employees(id)
 );
 
 CREATE TABLE role (
@@ -17,8 +25,12 @@ CREATE TABLE role (
     title VARCHAR(30),
     salary DECIMAL(10,2) NOT NULL,
     department_id INT NOT NULL,
+    CONSTRAINT fk_department
+        FOREIGN KEY(department_id) 
+        REFERENCES department(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(department_id) REFERENCES department(id)
 );
 
 CREATE TABLE department (
