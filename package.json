@@ -1,0 +1,33 @@
+{
+  "name": "employee-manager",
+  "version": "1.0.0",
+  "description": "An employer managment/tracking system for employees stored in a db.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AGr2020Xman/employee-manager-cli.git"
+  },
+  "keywords": [
+    "inquirer",
+    "mysql",
+    "asciiart",
+    "cli",
+    "sql",
+    "consoletable"
+  ],
+  "author": "Andre Grech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AGr2020Xman/employee-manager-cli/issues"
+  },
+  "homepage": "https://github.com/AGr2020Xman/employee-manager-cli#readme",
+  "dependencies": {
+    "asciiart-logo": "^0.2.6",
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
