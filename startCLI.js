@@ -1,4 +1,4 @@
-const { prompt } = require('inquirer');
+const { prompt, Separator } = require('inquirer');
 const connection = require('./index');
 const conTable = require('console.table')
 const { 
@@ -10,26 +10,60 @@ const {
     managerArray 
 } = require("./db_array");
 
-const startMenu = () => {
-    prompt([
+const startMenu = async () => {
+    // options menu layout
+    const optionMenu = [
+        new Separator("\n ───────── VIEW ──────────".green),
+        " VIEW employees",
+        " VIEW departments", 
+        " VIEW roles", 
+        " VIEW employees by manager",
+        " VIEW utilized budget by department",
+        new Separator("\n ───────── ADD ──────────".green),
+        " ADD employee",
+        " ADD department",
+        " ADD role",
+        new Separator("\n ───────── UPDATE ──────────".green),
+        " UPDATE employee",
+        new Separator("\n ───────── Delete ──────────".green),
+        " DELETE employee",
+        " DELETE department",
+        " DELETE role",        
+        new Separator("\n ───────────────────────────".green),
+        " Exit",
+        new Separator("\n"),                
+    ];
+
+    const openQuestion = [
         {
             type: "list",
             name: "operation",
+            prefix: " ",
             message: "What would you like to do? ",
-            choices: [
-                "ADD departments", 
-                "ADD roles", 
-                "ADD employees", 
-                "VIEW departments", 
-                "VIEW roles", 
-                "VIEW employees", 
-                "UPDATE employee",
-                "Exit"
-            ],
-            loop: false
+            choices: optionMenu,
+            pageSize: 30,
+            default: 0,
         }
-    ]).then((answer)=>{
-        switch (answer.operation) {
+    ]
+
+    const answers = prompt(openQuestion);
+    
+        switch (answers.operation.trim()) {
+            case "VIEW departments":
+                viewDepartment();
+                break; 
+            case "VIEW roles":
+                viewRoles();
+                break; 
+            case "VIEW employees":
+                viewEmployees();
+                break;
+            case "VIEW employees by manager":
+                viewEmployeesByManager();
+                break;
+            case "VIEW utilized budget by department":
+                viewBudget();
+                break;
             case "ADD departments":
                 addDepartment();
                 break;
@@ -39,49 +73,30 @@ const startMenu = () => {
             case "ADD employees":
                 addEmployees();
                 break; 
-            case "VIEW departments":
-                viewDepartment();
-                break; 
-            case "VIEW roles":
-                viewRoles();
-                break; 
-            case "VIEW employees":
-                viewEmployees();
-                break; 
             case "UPDATE employee":
                 updateEmployee();
+                break;
+            case "Delete Employee":
+                deleteEmployee();
+                break;
+            case "Delete Role":
+                deleteRole();
+                break;
+            case "Delete Department":
+                deleteDepartment();
                 break;
             case "Exit":
                 closeCLI();
                 connection.end();
                 break;
+            default:
+                console.clear();
+                console.log("Bye!");
+                return;
         }
-    });
+        // default
+        startMenu();
 };
 
-const addDepartment = () => {};
-const addRoles = () => {};
-const addEmployees = () => {};
-const viewDepartment = () => {
-    const query = "SELECT * FROM department ORDER BY department.id";
-    connection.query(query, (err, res) => {
-        if (err) throw err;
-        departmentArray = [];
-        res.forEach((row) => {
-            let department = {
-                id: row.id,
-                name: row.name,
-            };
-            (departmentArray).push(department);
-        })
-        console.log('\n');
-        console.table(departmentArray);
-    })
-    startMenu();
-};
 
-const viewRoles = () => {};
-const viewEmployees = () => {};
-const updateEmployee = () => {};
-const closeCLI = () => {};
 
