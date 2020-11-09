@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-
+const { prompt } = require('inquirer');
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -9,3 +9,6 @@ const connection = mysql.createConnection({
     database: "employee_tracker_db"
 });
 
+connection.connect((err) => {
+    if (err) throw err;
+})
