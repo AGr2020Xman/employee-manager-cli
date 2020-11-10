@@ -55,7 +55,7 @@ const updateDetails = async () => {
 		pageSize: 12
 		},
 		{
-		type: "input",
+		type: "list",
 		name: "department_id",
 		message: "Choose the employee's new department: ",
 		when: (answers) => answers.field === "Department",
