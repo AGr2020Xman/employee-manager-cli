@@ -14,22 +14,23 @@ const managerID = async () => {
 
     const managersResult = await databaseQuery(manager_query);
     
-    const managerResultString = [];
     
     const unpackRowpacket = () => {
-
+        let managerResultString = [];
+        managersResult.forEach((result)=>{
+            managerResultString.push({value: `${result.Value}`, name: `${result.Name}`});
+        });
+        return managerResultString;
     };
 
-    managersResult.forEach((result)=>{
-        managerResultString.push({value: `${result.Value}`, name: `${result.Name}`});
-    });
+    
 
 	const managerChoice = {
 		type: "list",
 		name: "id",
 		message: "Choose a manager:\n",
 		pageSize: 30,
-		choices: [...managerResultString, 'Go back']
+		choices: [...unpackRowpacket(), 'Go back']
     };
     
 
@@ -66,7 +67,7 @@ const viewDepartment = async () => {
         FROM department 
         ORDER BY department.name`;
     const resultsArray = await databaseQuery(dept_query);
-    console.table(resultsArray);
+    console.table('\nDepartments',resultsArray);
 };
 
 const viewRoles = async () => {
@@ -78,7 +79,7 @@ const viewRoles = async () => {
     JOIN department ON (role.department_id = department.id)
     ORDER BY title`;
     const resultsArray = await databaseQuery(roles_query);
-    console.table(resultsArray);
+    console.table('\nRoles',resultsArray);
 };
 
 const viewEmployees = async () => {
@@ -98,7 +99,7 @@ const viewEmployees = async () => {
     `;
 
     const resultsArray = await databaseQuery(employee_query);
-    console.table(resultsArray);
+    console.table('\nEmployees', resultsArray);
 };
 
 const viewEmployeesByManager = async () => {
@@ -121,7 +122,7 @@ const viewEmployeesByManager = async () => {
             ORDER BY Name`;
             
         const resultsArray = await databaseQuery(empman_query);
-        console.table(resultsArray);
+        console.table('\nEmployees with selected manager', resultsArray);
 };
 
 const viewBudget = async () => {
@@ -137,7 +138,7 @@ const viewBudget = async () => {
         ORDER BY Department`;
         
     const resultsArray = await databaseQuery(budget_query);
-    console.table(resultsArray);
+    console.table('\nUtilised Budget', resultsArray);
 };
 
 module.exports = { viewMethods };
