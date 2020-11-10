@@ -5,23 +5,23 @@ const { viewMethods } = require('./viewElement');
 const startMenu = async () => {
     // options menu layout
     const optionMenu = [
-        new Separator("\n ───────── VIEW ──────────".green),
+        new Separator("\n ───────── VIEW ──────────"),
         "VIEW employees",
         "VIEW departments", 
         "VIEW roles", 
         "VIEW employees by manager",
         "VIEW utilized budget by department",
-        new Separator("\n ───────── ADD ──────────".green),
+        new Separator("\n ───────── ADD ──────────"),
         "ADD employee",
         "ADD department",
         "ADD role",
-        new Separator("\n ───────── UPDATE ──────────".green),
+        new Separator("\n ───────── UPDATE ──────────"),
         "UPDATE employee",
-        new Separator("\n ───────── Delete ──────────".green),
+        new Separator("\n ───────── Delete ──────────"),
         "DELETE employee",
         "DELETE department",
         "DELETE role",        
-        new Separator("\n ───────────────────────────".green),
+        new Separator("\n ───────────────────────────"),
         "Exit",
         new Separator("\n"),                
     ];
@@ -38,7 +38,7 @@ const startMenu = async () => {
         }
     ]
 
-    const answers = prompt(openQuestion);
+    const answers = await prompt(openQuestion);
     
         switch (answers.operation) {
             case "VIEW departments":
