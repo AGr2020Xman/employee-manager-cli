@@ -17,7 +17,7 @@ const updateDetails = async () => {
 			type: "list",
 			name: "field",
 			message: "What field would you like to update?\n ",
-			choices: ["First Name", "Last Name", "Role", "Department", "Manager"],
+			choices: ["First Name", "Last Name", "Role", "Manager"],
 			pageSize: 6
 		},
 		{
