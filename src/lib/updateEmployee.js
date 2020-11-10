@@ -1,6 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-const { listRoles, listEmployees, listManagers } = require('../util/listFunctions');
+const { listRoles, listEmployees, listManagers, listDepartments } = require('../util/listFunctions');
 
 const updateDetails = async () => {
 
@@ -17,7 +17,7 @@ const updateDetails = async () => {
 			type: "list",
 			name: "field",
 			message: "What field would you like to update?\n ",
-			choices: ["First Name", "Last Name", "Role", "Manager"],
+			choices: ["First Name", "Last Name", "Role", "Department", "Manager"],
 			pageSize: 6
 		},
 		{
@@ -53,6 +53,21 @@ const updateDetails = async () => {
 		when: (answers) => answers.field === "Role",
 		choices: await listRoles(),
 		pageSize: 12
+		},
+		{
+		type: "input",
+		name: "department_id",
+		message: "Choose the employee's new department: ",
+		when: (answers) => answers.field === "Department",
+		choices: await listDepartments(),
+		pageSize: 12,
+		validate: function(value) {
+			const valid = value.match(/^[a-zA-Z\s]+$/i);
+			if (valid) {
+				return true;
+			}
+			return "Please enter a valid name (letter characters and spaces only).";
+			}
 		},
 		{
 		type: "confirm",
