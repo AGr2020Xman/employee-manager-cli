@@ -1,6 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-const { listDepartments } = require('./src/util/listFunctions');
+const { listDepartments } = require('../util/listFunctions');
 
 const queryNewRole = async () => {
 
@@ -50,7 +50,8 @@ const addRole = async () => {
 	const newRole = await databaseQuery(role_query, roleDetail);
 
 	console.clear();
-	console.log(`\n   New role added. ID is ${newRole.insertId}` + `\n`);
+	console.log(`\n Task complete!`);
+	console.log(`New role added. ID is ${newRole.insertId}` + `\n`);
 };
 
 

@@ -26,7 +26,8 @@ const addDepartment = async () => {
 	const newDepartment = await databaseQuery(new_dept_query, departmentName);
 
     console.clear();
-	console.log(`\n   New department added. ID is ${newDepartment.insertId}` + `\n`);
+	console.log(`\n Task complete!`);
+	console.log(` New department added. ID is ${newDepartment.insertId}` + `\n`);
 };
 
 module.exports = { addDepartment };

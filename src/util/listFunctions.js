@@ -1,4 +1,4 @@
-const {databaseQuery} = require('../../databaseQuery');
+const {databaseQuery} = require('../lib/databaseQuery');
 
 const listEmployees = async () => {
 
