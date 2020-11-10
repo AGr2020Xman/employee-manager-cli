@@ -1,24 +1,13 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-
-
-const listDepartments = async () => {
-
-	const dept_query = `
-    SELECT id AS value, name
-    FROM department
-    ORDER BY id`;
-
-	const resultsArray = await databaseQuery(dept_query);
-	return resultsArray;
-};
+const { listDepartments } = require('./listFunctions');
 
 const queryNewRole = async () => {
 
 	const roleQuestion = [
 		{
 		type: "input",
-		name: "first_name",
+		name: "title",
 		message: "Enter the name of the new role: ",
 		validate: function(value) {
 			const valid = value.match(/^[a-zA-Z\s]*$/);
@@ -30,7 +19,7 @@ const queryNewRole = async () => {
 		},
 		{
 		type: "input",
-		name: "last_name",
+		name: "salary",
 		message: "Enter the salary for the role: ",
 		validate: function(value) {
 			const valid = value.match(/^[0-9]*$/i);

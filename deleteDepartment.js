@@ -1,17 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-
-const listDepartments = async () => {
-
-	const query = `
-		SELECT id AS value, name
-		FROM department
-		ORDER BY id`;
-
-	const departmentsArray = await databaseQuery(query);
-	return departmentsArray;
-
-}
+const { listDepartments } = require('./listFunctions');
 
 const deleteDepartment = async () => {
 	console.clear();

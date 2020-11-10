@@ -1,17 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-
-const listEmployees = async () => {
-
-	const query = `
-		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
-		FROM employees
-		ORDER BY id`;
-
-	const employeesArray = await databaseQuery(query);
-	return employeesArray;
-
-};
+const { listEmployees } = require('./listFunctions');
 
 const deleteEmployee = async () => {
 	console.clear();

@@ -26,7 +26,7 @@ const listManagers = async () => {
 
 	const manager_query = `
 		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
-		FROM employee
+		FROM employees
 		WHERE ISNULL(manager_id)
 		ORDER BY id
 	`;

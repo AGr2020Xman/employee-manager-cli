@@ -1,33 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-
-
-const listRoles = async () => {
-
-	const role_query = `
-		SELECT id AS value, title AS name
-		FROM role
-		ORDER BY id
-	`;
-
-	const resultsArray = await databaseQuery(role_query);
-	return resultsArray;
-
-}
-
-const listManagers = async () => {
-
-	const manager_query = `
-		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
-		FROM employee
-		WHERE ISNULL(manager_id)
-		ORDER BY ID
-	`;
-
-	const resultsArray = await databaseQuery(manager_query);
-	return resultsArray;
-
-}
+const { listRoles, listManagers } = require('./listFunctions');
 
 const queryNewEmployee = async () => {
 
@@ -64,11 +37,18 @@ const queryNewEmployee = async () => {
 		pageSize: 12
 		},
 		{
+		type: 'confirm',
+		name: 'manager_yn',
+		message: 'Is this employee a manager (if no, you will have to choose a manager)? \n',
+		default: 'true',
+		},
+		{
 		type: "list",
 		name: "manager_id",
 		message: "Choose the employee's manager: \n",
 		choices: await listManagers(),
-		pageSize: 12
+		pageSize: 12,
+		when: (answer) => answer.manager_yn === false,
 		}
 	];
 
@@ -81,12 +61,14 @@ const addEmployee = async () => {
 	console.clear();
 
 
-	const employee_query = `INSERT INTO employee SET ?`;
+	const employee_query = `INSERT INTO employees SET ?`;
 	const employeeDetail = await queryNewEmployee();
+	delete employeeDetail['manager_yn'];
 	const newEmployee = await databaseQuery(employee_query, employeeDetail);
 
 	console.clear();
-	console.log(`\n   New department added. ID is ${newEmployee.insertId}` + `\n`);
+	console.log(`\n Task complete!`);
+	console.log(` New employee added. ID is ${newEmployee.insertId}` + `\n`);
 };
 
 
