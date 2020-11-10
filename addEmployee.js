@@ -7,7 +7,7 @@ const listRoles = async () => {
 	const role_query = `
 		SELECT id AS value, title AS name
 		FROM role
-		ORDER BY ID
+		ORDER BY id
 	`;
 
 	const resultsArray = await databaseQuery(role_query);

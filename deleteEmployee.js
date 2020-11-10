@@ -6,7 +6,7 @@ const listEmployees = async () => {
 	const query = `
 		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
 		FROM employees
-		ORDER BY name`;
+		ORDER BY id`;
 
 	const employeesArray = await databaseQuery(query);
 	return employeesArray;
@@ -31,3 +31,5 @@ const deleteEmployee = async () => {
 	console.clear();
 	console.log(`\n   Employee deleted.` + `\n`);
 };
+
+module.exports = { deleteEmployee };

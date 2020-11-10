@@ -6,7 +6,7 @@ const listEmployees = async () => {
 	const query = `
 		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
 		FROM employees
-		ORDER BY name`;
+		ORDER BY id`;
 
 	const employeesArray = await databaseQuery(query);
 	return employeesArray;
@@ -117,7 +117,7 @@ const updateDetails = async () => {
 const updateEmployee = async () => {
 	console.clear();
 	
-	let updatedDetails = await promptUpdateDetails();
+	let updatedDetails = await updateDetails();
     let updatedValuesArray = [updatedDetails.id];
 
 	delete updatedDetails.id;
@@ -130,3 +130,5 @@ const updateEmployee = async () => {
 	console.clear();
 	console.log(`\n   Employee updated.` + `\n`);
 };
+
+module.exports = { updateEmployee };

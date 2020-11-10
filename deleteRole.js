@@ -6,7 +6,7 @@ const listRoles = async () => {
 	const query = `
 		SELECT id AS value, title AS name
 		FROM role
-		ORDER BY name`;
+		ORDER BY id`;
 
 	const rolesArray = await databaseQuery(query);
 	return rolesArray;
@@ -31,3 +31,5 @@ const deleteRole = async () => {
 	console.clear();
 	console.log(`\n   Role deleted.` + `\n`);
 }
+
+module.exports = { deleteRole };

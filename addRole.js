@@ -7,7 +7,7 @@ const listDepartments = async () => {
 	const dept_query = `
     SELECT id AS value, name
     FROM department
-    ORDER BY ID`;
+    ORDER BY id`;
 
 	const resultsArray = await databaseQuery(dept_query);
 	return resultsArray;

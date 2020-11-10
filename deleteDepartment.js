@@ -6,7 +6,7 @@ const listDepartments = async () => {
 	const query = `
 		SELECT id AS value, name
 		FROM department
-		ORDER BY name`;
+		ORDER BY id`;
 
 	const departmentsArray = await databaseQuery(query);
 	return departmentsArray;
@@ -30,4 +30,6 @@ const deleteDepartment = async () => {
 
 	console.clear();
 	console.log(`\n   Department deleted.` + `\n`);
-}
+};
+
+module.exports = { deleteDepartment };
