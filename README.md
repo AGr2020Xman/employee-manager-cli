@@ -77,19 +77,19 @@ So that I can organize and plan my business
 
 _Initiate application with start choices_
 
-![](./assets/initiate.JPG)
+![](./Assets/initiate.JPG)
 
 _Viewing tables_
 
-![](./assets/viewing.JPG)
+![](./Assets/viewing.JPG)
 
 _Adding Employee_
 
-![](./assets/adding.JPG)
+![](./Assets/adding.JPG)
 
 _Updating Employee_
 
-![](./assets/updating.JPG)
+![](./Assets/updating.JPG)
 
 ## Questions
 
