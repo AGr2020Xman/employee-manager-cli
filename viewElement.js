@@ -1,5 +1,5 @@
 const { prompt } = require('inquirer');
-const databaseQuery = require('./databaseQuery');
+const { databaseQuery } = require('./databaseQuery');
 const conTable = require('console.table')
 
 const managerID = async () => {

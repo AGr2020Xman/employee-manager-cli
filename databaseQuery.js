@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const { prompt } = require('inquirer');
+const { promisify } = require('util')
 
 const databaseQuery = async (query, values) => {
 
@@ -12,7 +13,7 @@ const databaseQuery = async (query, values) => {
         database: "employee_tracker_db"
     });
     
-    const promiseQuery = util.promisify(connection.query).bind(connection);
+    const promiseQuery = promisify(connection.query).bind(connection);
     const result = await promiseQuery(query, values)
 
 

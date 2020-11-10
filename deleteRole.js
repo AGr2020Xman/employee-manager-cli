@@ -1,5 +1,5 @@
 const { prompt } = require("inquirer");
-const databaseQuery = require("./index");
+const {databaseQuery} = require("./databaseQuery");
 
 const listRoles = async () => {
 
