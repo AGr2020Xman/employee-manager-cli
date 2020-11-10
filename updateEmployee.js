@@ -1,44 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-
-const listEmployees = async () => {
-
-	const query = `
-		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
-		FROM employees
-		ORDER BY id`;
-
-	const employeesArray = await databaseQuery(query);
-	return employeesArray;
-
-};
-
-const listRoles = async () => {
-
-	const query = `
-		SELECT id AS value, title AS name
-		FROM role
-		ORDER BY name`;
-
-	const rolesArray = await databaseQuery(query);
-	return rolesArray;
-
-};
-
-const listManagers = async () => {
-
-	const manager_query = `
-		SELECT id AS value, CONCAT(first_name, " ", last_name) AS name
-		FROM employee
-		WHERE ISNULL(manager_id)
-		ORDER BY ID
-	`;
-
-	const resultsArray = await databaseQuery(manager_query);
-	return resultsArray;
-
-};
-
+const { listRoles, listEmployees, listManagers } = require('./listFunctions');
 
 const updateDetails = async () => {
 
@@ -62,9 +24,7 @@ const updateDetails = async () => {
 		type: "input",
 		name: "first_name",
 		message: "Enter the employee's first name: ",
-		when: function(answers) {
-			return answers.field === "First Name";
-			},
+		when: (answers) => answers.field === "First Name",
 		validate: function(value) {
 			const valid = value.match(/^[a-zA-Z\s]+$/i);
 			if (valid) {
@@ -77,9 +37,7 @@ const updateDetails = async () => {
 		type: "input",
 		name: "last_name",
 		message: "Enter the employee's last name: ",
-		when: function(answers) {
-			return answers.field === "Last Name";
-			},
+		when: (answers) => answers.field === "Last Name",
 		validate: function(value) {
 			const valid = value.match(/^[a-zA-Z\s]+$/i);
 			if (valid) {
@@ -92,19 +50,23 @@ const updateDetails = async () => {
 		type: "list",
 		name: "role_id",
 		message: "Choose the employee's role:\n",
-		when: function(answers) {
-			return answers.field === "Role";
-			},
+		when: (answers) => answers.field === "Role",
 		choices: await listRoles(),
 		pageSize: 12
+		},
+		{
+		type: "confirm",
+		name: "manager_yn",
+		message: "Do you wish to make this employee a manager? \n",
+		when: (answers) => answers.field === "Manager",
+		default: 'true',
+		pageSize: 10
 		},
 		{
 		type: "list",
 		name: "manager_id",
 		message: "Choose the employee's manager:\n",
-		when: function(answers) {
-			return answers.field === "Manager";
-			},
+		when: (answers) => answers.manager_yn === "false",
 		choices: await listManagers(),
 		pageSize: 10
 		}
@@ -118,17 +80,20 @@ const updateEmployee = async () => {
 	console.clear();
 	
 	let updatedDetails = await updateDetails();
+	delete updatedDetails['manager_yn'];
+	updatedDetails['manager_id'] = this.id;
     let updatedValuesArray = [updatedDetails.id];
 
 	delete updatedDetails.id;
 	delete updatedDetails.field;
 
 	updatedValuesArray.unshift(updatedDetails);	
-	const update_query = `UPDATE employee SET ? WHERE id=?`;
+	const update_query = `UPDATE employees SET ? WHERE id=?`;
 	await databaseQuery(update_query, updatedValuesArray);
 	
 	console.clear();
-	console.log(`\n   Employee updated.` + `\n`);
+	console.log('\n Task complete!');
+	console.log(` Employee updated.` + `\n`);
 };
 
 module.exports = { updateEmployee };

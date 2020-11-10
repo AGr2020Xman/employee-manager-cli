@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const { prompt } = require('inquirer');
 const { promisify } = require('util')
 
 const databaseQuery = async (query, values) => {

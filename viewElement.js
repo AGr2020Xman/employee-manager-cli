@@ -14,7 +14,6 @@ const managerID = async () => {
 
     const managersResult = await databaseQuery(manager_query);
     
-    
     const unpackRowpacket = () => {
         let managerResultString = [];
         managersResult.forEach((result)=>{
@@ -22,8 +21,6 @@ const managerID = async () => {
         });
         return managerResultString;
     };
-
-    
 
 	const managerChoice = {
 		type: "list",

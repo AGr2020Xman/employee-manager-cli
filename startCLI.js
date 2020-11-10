@@ -77,13 +77,13 @@ const startMenu = async () => {
             case "UPDATE employee":
                 await updateEmployee();
                 break;
-            case "Delete employee":
+            case "DELETE employee":
                 await deleteEmployee();
                 break;
-            case "Delete role":
+            case "DELETE role":
                 await deleteRole();
                 break;
-            case "Delete department":
+            case "DELETE department":
                 await deleteDepartment();
                 break;
             default:
