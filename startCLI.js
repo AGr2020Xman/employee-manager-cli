@@ -65,25 +65,25 @@ const startMenu = async () => {
             case "VIEW utilized budget by department":
                 await viewMethods('budget');
                 break;
-            case "ADD departments":
+            case "ADD department":
                 await addDepartment();
                 break;
-            case "ADD roles":
+            case "ADD role":
                 await addRole();
                 break;
-            case "ADD employees":
+            case "ADD employee":
                 await addEmployee();
                 break; 
             case "UPDATE employee":
                 await updateEmployee();
                 break;
-            case "Delete Employee":
+            case "Delete employee":
                 await deleteEmployee();
                 break;
-            case "Delete Role":
+            case "Delete role":
                 await deleteRole();
                 break;
-            case "Delete Department":
+            case "Delete department":
                 await deleteDepartment();
                 break;
             default:
