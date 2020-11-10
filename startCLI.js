@@ -1,6 +1,15 @@
 const { prompt, Separator } = require('inquirer');
 const connection = require('./databaseQuery');
 const { viewMethods } = require('./viewElement');
+const { addDepartment } = require('./addDepartment');
+const { addEmployee } = require('./addEmployee');
+const { addRole } = require('./addRole');
+const { deleteDepartment } = require('./deleteDepartment');
+const { deleteEmployee } = require('./deleteEmployee');
+const { deleteRole } = require('./deleteRole');
+const { updateEmployee } = require('./updateEmployee');
+
+
 
 const startMenu = async () => {
     // options menu layout
@@ -60,10 +69,10 @@ const startMenu = async () => {
                 await addDepartment();
                 break;
             case "ADD roles":
-                await addRoles();
+                await addRole();
                 break;
             case "ADD employees":
-                await addEmployees();
+                await addEmployee();
                 break; 
             case "UPDATE employee":
                 await updateEmployee();
