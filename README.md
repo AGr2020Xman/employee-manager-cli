@@ -49,6 +49,7 @@ Ensure the following are correctly installed (if you have node already, make sur
 - [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console.
 
 Run <addr>node start</addr> to run the application and choose from the prompted options to begin.
+Add employees into roles & roles into departments for basic functionality!
 
 ## User Story
 
@@ -70,13 +71,25 @@ So that I can organize and plan my business
 
 ## Demonstration
 
-- [Tutorial-Video](https://drive.google.com/file/d/1AJ7NADuEGr-LswTzgOcTKi_kHifzYDH2/view?usp=sharing)
+- [Tutorial-Video](https://drive.google.com/file/d/1h8zwnRMBoQVshUisqUCIn8VMIVB6xJtl/view)
 
 ## Screenshots
 
 _Initiate application with start choices_
 
-![](./images/initiate.JPG)
+![](./assets/initiate.JPG)
+
+_Viewing tables_
+
+![](./assets/viewing.JPG)
+
+_Adding Employee_
+
+![](./assets/adding.JPG)
+
+_Updating Employee_
+
+![](./assets/updating.JPG)
 
 ## Questions
 
