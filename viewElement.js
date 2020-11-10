@@ -1,6 +1,29 @@
 const { prompt } = require('inquirer');
-const databaseQuery = require('./index');
+const databaseQuery = require('./databaseQuery');
 const conTable = require('console.table')
+
+const managerID = async () => {
+	const manager_query = `
+        SELECT 
+            id Value, 
+            CONCAT(first_name, " ", last_name) Name
+		FROM employee
+		WHERE ISNULL(manager_id)
+		ORDER BY Name`;
+
+	const managersResult = await databaseQuery(manager_query);
+
+	const managerChoice = {
+		type: "list",
+		name: "id",
+		message: "Choose a manager:\n",
+		pageSize: 30,
+		choices: managersResult,
+	};
+
+	const answers = await prompt(managerChoice);
+	return answers.id;
+}
 
 const viewDepartment = () => {
     const dept_query = `
@@ -42,38 +65,10 @@ const viewEmployees = () => {
     console.table(resultsArray);
 };
 
-const managerID = async () => {
-
-	const manager_query = `
-        SELECT 
-            id Value, 
-            CONCAT(first_name, " ", last_name) Name
-		FROM employee
-		WHERE ISNULL(manager_id)
-		ORDER BY Name`;
-
-	const managersResult = await databaseQuery(manager_query);
-
-	// Configure inquirer parameters.
-	const managerChoice = {
-		type: "list",
-		name: "id",
-		message: "Choose a manager:\n",
-		pageSize: 30,
-		choices: managersResult,
-	};
-
-	// Return the employee id of the manager.
-	const answers = await prompt(managerChoice);
-	return answers.id;
-}
-
-
-const viewEmployeesByManager = () => {
+const viewEmployeesByManager = async () => {
     	console.clear();
-		writeHeader("Employees by Manager");
 		const managerID = await managerID();
-		empman_query = `
+		const empman_query = `
             SELECT 
                 CONCAT(employees.first_name, " ", employees.last_name) Name, 
                 employees.id ID, 
@@ -94,7 +89,7 @@ const viewEmployeesByManager = () => {
 };
 
 const viewBudget = () => {
-    budget_query = `
+    const budget_query = `
         SELECT 
             department.name Department, 
             department.id ID, 
@@ -109,4 +104,4 @@ const viewBudget = () => {
     console.table(resultsArray);
 };
 
-module.exports = { viewEmployees, viewRoles, viewDepartment, viewEmployeesByManager, viewBudget };
+module.exports = { viewMethods };
