@@ -6,7 +6,7 @@ const borderArt = "  ".concat("=".repeat(70));
 const displayLogoArt = () => {
     const settings = {
         name: 'Employee Tracker',
-        font: 'Acrobatic',
+        font: 'Big',
         lineChars: 10,
         padding: 2,
         margin: 2,
