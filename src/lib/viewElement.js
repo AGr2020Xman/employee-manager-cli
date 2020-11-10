@@ -1,7 +1,6 @@
 const { prompt } = require('inquirer');
 const { databaseQuery } = require('./databaseQuery');
 const conTable = require('console.table');
-const { startMenu } = require('../util/startCLI');
 
 const managerID = async () => {
 	const manager_query = `
@@ -14,27 +13,18 @@ const managerID = async () => {
 
     const managersResult = await databaseQuery(manager_query);
     
-    const unpackRowpacket = () => {
-        let managerResultString = [];
-        managersResult.forEach((result)=>{
-            managerResultString.push({value: `${result.Value}`, name: `${result.Name}`});
-        });
-        return managerResultString;
-    };
+    const unpackRowPacket = managersResult.map((manager) => ({value: manager.Value, name: manager.Name}));
 
 	const managerChoice = {
 		type: "list",
 		name: "id",
 		message: "Choose a manager:\n",
 		pageSize: 30,
-		choices: [...unpackRowpacket(), 'Go back']
+		choices: [...unpackRowPacket, 'Go back']
     };
     
-
     const answers = await prompt(managerChoice);
-    if (answers.id === 'Go back'){
-        return;
-    }
+    
     return answers.id;
 };
 
@@ -100,8 +90,12 @@ const viewEmployees = async () => {
 };
 
 const viewEmployeesByManager = async () => {
-    	console.clear();
-		const managerId = await managerID();
+        console.clear();
+        const { startMenu } = require('../util/startCLI');
+        const managerId = await managerID();
+        if (managerId === 'Go back'){
+            startMenu();
+        }
 		const empman_query = `
             SELECT 
                 CONCAT(employees.first_name, " ", employees.last_name) Name, 
