@@ -37,6 +37,8 @@ npm install --save
 
 3. Create the employee_tracker_db by running the script <addr>schema.sql</addr> and seeding mock data with the <addr>seeds.sql</addr> included in <a href="./src/db">db</a> folder.
 
+4. Adjust root and password locations, as well as port in the databaseQuery.js file for your own servers.
+
 ## Usage
 
 Ensure the following are correctly installed (if you have node already, make sure version is up to date):
