@@ -1,15 +1,16 @@
 const { prompt } = require('inquirer');
 const { databaseQuery } = require('./databaseQuery');
-const conTable = require('console.table')
+const conTable = require('console.table');
+const { startMenu } = require('./startCLI');
 
 const managerID = async () => {
 	const manager_query = `
         SELECT 
-            id AS Value, 
+            id Value, 
             CONCAT(first_name, " ", last_name) Name
 		FROM employees
 		WHERE ISNULL(manager_id)
-		ORDER BY name`;
+		ORDER BY id`;
 
 	const managersResult = await databaseQuery(manager_query);
 
@@ -18,11 +19,14 @@ const managerID = async () => {
 		name: "id",
 		message: "Choose a manager:\n",
 		pageSize: 30,
-		choices: managersResult,
+		choices: [managersResult, 'Go back']
 	};
 
 	const answers = await prompt(managerChoice);
-	return answers.id;
+    if (answers.id === 'Go back'){
+        return;
+    }
+    return answers.id;
 }
 
 const viewMethods = async (viewCategory) => {
