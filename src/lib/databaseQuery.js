@@ -8,7 +8,7 @@ const databaseQuery = async (query, values) => {
         host: "localhost",
         port: 3306,
         user: "root",
-        password: "H0n@s0up1234",
+        password: "",
         database: "employee_tracker_db"
     });
     
