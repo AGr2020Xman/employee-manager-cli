@@ -1,7 +1,5 @@
 const logo = require('asciiart-logo');
 
-const borderArt = "  ".concat("=".repeat(70));
-
 // as per ascii-art docs, following standards to create
 const displayLogoArt = () => {
     const settings = {

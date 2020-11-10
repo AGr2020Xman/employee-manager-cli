@@ -1,7 +1,7 @@
 const { prompt } = require('inquirer');
 const { databaseQuery } = require('./databaseQuery');
 const conTable = require('console.table');
-const { startMenu } = require('./startCLI');
+const { startMenu } = require('../util/startCLI');
 
 const managerID = async () => {
 	const manager_query = `

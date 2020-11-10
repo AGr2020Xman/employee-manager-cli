@@ -1,13 +1,13 @@
 const { prompt, Separator } = require('inquirer');
 const connection = require('./databaseQuery');
-const { viewMethods } = require('./viewElement');
-const { addDepartment } = require('./addDepartment');
+const { viewMethods } = require('../lib/viewElement');
+const { addDepartment } = require('../lib/addDepartment');
 const { addEmployee } = require('./addEmployee');
 const { addRole } = require('./addRole');
 const { deleteDepartment } = require('./deleteDepartment');
 const { deleteEmployee } = require('./deleteEmployee');
 const { deleteRole } = require('./deleteRole');
-const { updateEmployee } = require('./updateEmployee');
+const { updateEmployee } = require('../lib/updateEmployee');
 
 
 

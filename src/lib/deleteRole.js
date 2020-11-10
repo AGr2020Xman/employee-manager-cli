@@ -1,6 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-const { listRoles } = require('./listFunctions');
+const { listRoles } = require('./src/util/listFunctions');
 
 const deleteRole = async () => {
 	console.clear();

@@ -1,6 +1,6 @@
 const { prompt } = require("inquirer");
 const {databaseQuery} = require("./databaseQuery");
-const { listDepartments } = require('./listFunctions');
+const { listDepartments } = require('./src/util/listFunctions');
 
 const queryNewRole = async () => {
 
