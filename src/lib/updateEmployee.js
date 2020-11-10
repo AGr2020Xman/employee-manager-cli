@@ -86,7 +86,6 @@ const updateDetails = async () => {
 const updateEmployee = async () => {
 	console.clear();
 	let updatedDetails = await updateDetails();
-	console.log(updatedDetails);
 	let update_query = `UPDATE employees SET ? WHERE id=?`;
 	let updatedValuesArray = [updatedDetails.id];
 	if (('manager_yn' in updatedDetails) === true){
@@ -106,7 +105,6 @@ const updateEmployee = async () => {
 	else if ('role_id' in updatedDetails) {
 		update_query = `UPDATE employees SET role_id=? WHERE id=?`
 		updatedValuesArray.unshift(updatedDetails.role_id)
-		console.log('inside roleid',updatedValuesArray);
 	}
 
 	delete updatedDetails.id;
