@@ -19,7 +19,7 @@ const managerID = async () => {
 		name: "id",
 		message: "Choose a manager:\n",
 		pageSize: 30,
-		choices: [managersResult, 'Go back']
+		choices: [...managersResult, 'Go back']
 	};
 
 	const answers = await prompt(managerChoice);
