@@ -25,6 +25,26 @@ const managerID = async () => {
 	return answers.id;
 }
 
+const viewMethods = async (viewCategory) => {
+    switch (viewCategory) {
+        case "department":
+            viewDepartment();            
+            break;
+        case "roles":
+            viewRoles();
+            break;
+        case "employees":
+            viewEmployees();
+            break;
+        case "manager":
+            viewEmployeesByManager();
+            break;
+        case "budget":
+            viewBudget();
+            break;
+    }
+};
+
 const viewDepartment = () => {
     const dept_query = `
         SELECT * 
