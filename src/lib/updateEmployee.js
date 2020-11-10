@@ -57,17 +57,10 @@ const updateDetails = async () => {
 		{
 		type: "list",
 		name: "department_id",
-		message: "Choose the employee's new department: ",
+		message: "Choose the employee's new department:\n",
 		when: (answers) => answers.field === "Department",
 		choices: await listDepartments(),
 		pageSize: 12,
-		validate: function(value) {
-			const valid = value.match(/^[a-zA-Z\s]+$/i);
-			if (valid) {
-				return true;
-			}
-			return "Please enter a valid name (letter characters and spaces only).";
-			}
 		},
 		{
 		type: "confirm",
