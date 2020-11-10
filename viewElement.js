@@ -5,11 +5,11 @@ const conTable = require('console.table')
 const managerID = async () => {
 	const manager_query = `
         SELECT 
-            id Value, 
+            id AS Value, 
             CONCAT(first_name, " ", last_name) Name
-		FROM employee
+		FROM employees
 		WHERE ISNULL(manager_id)
-		ORDER BY Name`;
+		ORDER BY name`;
 
 	const managersResult = await databaseQuery(manager_query);
 
@@ -28,33 +28,33 @@ const managerID = async () => {
 const viewMethods = async (viewCategory) => {
     switch (viewCategory) {
         case "department":
-            viewDepartment();            
+            await viewDepartment();            
             break;
         case "roles":
-            viewRoles();
+            await viewRoles();
             break;
         case "employees":
-            viewEmployees();
+            await viewEmployees();
             break;
         case "manager":
-            viewEmployeesByManager();
+            await viewEmployeesByManager();
             break;
         case "budget":
-            viewBudget();
+            await viewBudget();
             break;
     }
 };
 
-const viewDepartment = () => {
+const viewDepartment = async () => {
     const dept_query = `
         SELECT * 
         FROM department 
         ORDER BY department.name`;
-    const resultsArray = databaseQuery(dept_query);
+    const resultsArray = await databaseQuery(dept_query);
     console.table(resultsArray);
 };
 
-const viewRoles = () => {
+const viewRoles = async () => {
     const roles_query = `
     SELECT
         role.title Role, role.id ID, role.salary Salary,
@@ -62,32 +62,33 @@ const viewRoles = () => {
     FROM role
     JOIN department ON (role.department_id = department.id)
     ORDER BY title`;
-    const resultsArray = databaseQuery(roles_query);
+    const resultsArray = await databaseQuery(roles_query);
     console.table(resultsArray);
 };
 
-const viewEmployees = () => {
+const viewEmployees = async () => {
     const employee_query = `
-        SELECT 
-            CONCAT(employees.first_name, " ", employees.last_name) Name, 
-            employees.id ID,
-            CONCAT(employees.first_name, " ", employees.last_name) Name, 
-            role.title Role, 
-            department.name Department,
-            role.salary Salary,
-            CONCAT(m.first_name, " ", m.last_name) Manager, 
-        FROM employees
-        LEFT JOIN employees m ON m.id = employees.manager_id
-        JOIN role ON roles.id = employees.role_id
-        JOIN departments ON roles.department_id=departments.id 
-        ORDER BY Name`;
-    const resultsArray = databaseQuery(employee_query);
+    SELECT 
+	    CONCAT(employees.first_name, " ", employees.last_name) Name, 
+	    employees.id ID,
+	    role.title Role, 
+	    department.name Department,
+	    role.salary Salary,
+	    CONCAT(managers.first_name, " ", managers.last_name) Manager  
+    FROM employees
+    INNER JOIN role ON role.id = employees.role_id
+    INNER JOIN department ON role.department_id=department.id 
+    LEFT JOIN employees managers ON managers.id = employees.manager_id
+    ORDER BY Name
+    `;
+
+    const resultsArray = await databaseQuery(employee_query);
     console.table(resultsArray);
 };
 
 const viewEmployeesByManager = async () => {
     	console.clear();
-		const managerID = await managerID();
+		const managerId = await managerID();
 		const empman_query = `
             SELECT 
                 CONCAT(employees.first_name, " ", employees.last_name) Name, 
@@ -95,20 +96,20 @@ const viewEmployeesByManager = async () => {
                 CONCAT(employees.first_name, " ", employees.last_name) Name, 
                 role.title Role, 
                 department.name Department, 
-                CONCAT(m.first_name, " ", m.last_name) Manager, 
+                CONCAT(managers.first_name, " ", managers.last_name) Manager, 
                 role.salary Salary
 			FROM employees
-			LEFT JOIN employees m ON m.id = employees.manager_id
+			LEFT JOIN employees managers ON managers.id = employees.manager_id
 			JOIN role ON role.id = employees.role_id
 			JOIN department ON department.id = role.department_id
-			WHERE employees.manager_id = ${managerID}
+			WHERE employees.manager_id = ${managerId}
             ORDER BY Name`;
             
-        const resultsArray = databaseQuery(empman_query);
+        const resultsArray = await databaseQuery(empman_query);
         console.table(resultsArray);
 };
 
-const viewBudget = () => {
+const viewBudget = async () => {
     const budget_query = `
         SELECT 
             department.name Department, 
@@ -120,7 +121,7 @@ const viewBudget = () => {
 		GROUP BY department.id
         ORDER BY Department`;
         
-    const resultsArray = databaseQuery(budget_query);
+    const resultsArray = await databaseQuery(budget_query);
     console.table(resultsArray);
 };
 
