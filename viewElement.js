@@ -12,22 +12,33 @@ const managerID = async () => {
 		WHERE ISNULL(manager_id)
 		ORDER BY id`;
 
-	const managersResult = await databaseQuery(manager_query);
+    const managersResult = await databaseQuery(manager_query);
+    
+    const managerResultString = [];
+    
+    const unpackRowpacket = () => {
+
+    };
+
+    managersResult.forEach((result)=>{
+        managerResultString.push({value: `${result.Value}`, name: `${result.Name}`});
+    });
 
 	const managerChoice = {
 		type: "list",
 		name: "id",
 		message: "Choose a manager:\n",
 		pageSize: 30,
-		choices: [...managersResult, 'Go back']
-	};
+		choices: [...managerResultString, 'Go back']
+    };
+    
 
-	const answers = await prompt(managerChoice);
+    const answers = await prompt(managerChoice);
     if (answers.id === 'Go back'){
         return;
     }
     return answers.id;
-}
+};
 
 const viewMethods = async (viewCategory) => {
     switch (viewCategory) {
